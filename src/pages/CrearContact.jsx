@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { createcontact, editcontact } from "../services/servicesApi";
+import { createcontact, editcontact, getContact } from "../services/servicesApi";
 
 export const CrearContact = () => {
-    
+
     const { store, dispatch } = useGlobalReducer()
     const { id } = useParams()
     const [isEditing, setIsEditing] = useState(false)
@@ -27,8 +27,6 @@ export const CrearContact = () => {
     const handleSumit = async (e) => {
         e.preventDefault();
 
-         if (!newContact.name || !newContact.email || !newContact.telefono || !newContact.direccion) {
-         }
         if (isEditing) {
             editcontact(id, newContact, dispatch, navigate)
         } else {
@@ -39,11 +37,12 @@ export const CrearContact = () => {
 
     useEffect(() => {
         if (id) {
-            let editandooooo = store.contact.filter(contact => contact.id == id)
-            setNewContact(editandooooo[0])
-            setIsEditing(true)
-            console.log(newContact);
+                setIsEditing(true)
+                setNewContact(store.contact.filter(contact => contact.id == id)[0])
+                console.log(newContact);
             
+
+
         } else {
             setIsEditing(false)
             setNewContact(
