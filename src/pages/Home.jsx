@@ -19,7 +19,7 @@ export const Home = () => {
 				<img className="rounded-circle object-fit-cover" style={{ width: "150px", height: "150px" }} src="https://png.pngtree.com/background/20230611/original/pngtree-an-old-wizard-holding-a-ball-that-he-rolled-in-his-picture-image_3169742.jpg" alt="" />
 			</div>
 			{store.contact.map((contact, index) => {
-                return (
+                
 				<>
 					<div className="d-flex flex-column col-md-7" key={index}>
 						<h2 className="mb-2">{contact.name}</h2>
@@ -35,7 +35,7 @@ export const Home = () => {
 						<button className="m-1"><i className="fa-solid fa-trash"></i></button>
 					</div>
 				</>
-				)
+				
 			})}
 		</div>
 	);
