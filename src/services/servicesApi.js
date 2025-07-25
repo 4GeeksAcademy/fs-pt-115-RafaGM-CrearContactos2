@@ -4,7 +4,6 @@ export const getContact = async (dispatch) => {
 		createAgenda();
 	}
 	const data = await response.json()
-	console.log(data);
 	dispatch({ type: "set_contact", payload: data.contacts })
 
 

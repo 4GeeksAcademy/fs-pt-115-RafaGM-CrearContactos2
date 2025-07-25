@@ -39,12 +39,7 @@ export const Home = () => {
 							<i className="fa-solid fa-trash"></i>
 						</button>
 					</div>
-
-
-
-
-
-					<div className="modal fade" id="confirmarEliminacionModal" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div className="modal fade" id="confirmarEliminacionModal" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 						<div className="modal-dialog">
 							<div className="modal-content">
 								<div className="modal-header">

@@ -7,18 +7,9 @@ export const CrearContact = () => {
 
     const { store, dispatch } = useGlobalReducer()
     const { id } = useParams()
-    const [isEditing, setIsEditing] = useState(false)
     const navigate = useNavigate()
-
-
-    const [newContact, setNewContact] = useState(
-        {
-            "name": "",
-            "phone": "",
-            "email": "",
-            "address": ""
-        }
-    )
+    const buscarContact = store.contact.find(contact => contact.id == id)
+    const [newContact, setNewContact] = useState({})
 
     const handleChange = (e) => {
         setNewContact({ ...newContact, [e.target.id]: e.target.value })
@@ -27,34 +18,26 @@ export const CrearContact = () => {
     const handleSumit = async (e) => {
         e.preventDefault();
 
-        if (isEditing) {
+        if (id) {
             editcontact(id, newContact, dispatch, navigate)
-        } else {
-
-            createcontact(newContact, navigate, dispatch);
+            return
         }
+        createcontact(newContact, navigate, dispatch);
+
     }
 
     useEffect(() => {
         if (id) {
-                setIsEditing(true)
-                setNewContact(store.contact.filter(contact => contact.id == id)[0])
-                console.log(newContact);
-            
-
-
-        } else {
-            setIsEditing(false)
-            setNewContact(
-                {
-                    "name": "",
-                    "phone": "",
-                    "email": "",
-                    "address": ""
-                }
-            )
+            setNewContact(buscarContact)
         }
     }, [id])
+
+
+
+    useEffect(() => {
+        getContact(dispatch)
+    }, [])
+
 
     return (
         <form onSubmit={handleSumit} className="container w-50 bg-light my-5 p-3">
@@ -63,29 +46,29 @@ export const CrearContact = () => {
                 <label htmlFor="name" className="form-label">
                     Nombre contacto
                 </label>
-                <input type="text" className="form-control" id="name" onChange={(e) => handleChange(e)} required />
+                <input type="text" className="form-control" id="name" onChange={(e) => handleChange(e)} required defaultValue={newContact.name ?? ""} />
             </div>
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                     Email
                 </label>
-                <input type="text" className="form-control" id="email" onChange={(e) => handleChange(e)} required />
+                <input type="text" className="form-control" id="email" onChange={(e) => handleChange(e)} required defaultValue={newContact.email ?? ""} />
             </div>
             <div className="mb-3">
                 <label htmlFor="phone" className="form-label">
                     Telefono
                 </label>
-                <input type="text" className="form-control" id="phone" onChange={(e) => handleChange(e)} required />
+                <input type="text" className="form-control" id="phone" onChange={(e) => handleChange(e)} required defaultValue={newContact.phone ?? ""} />
             </div>
             <div className="mb-3">
                 <label htmlFor="address" className="form-label">
                     Dirección
                 </label>
-                <input type="text" className="form-control" id="address" onChange={(e) => handleChange(e)} required />
+                <input type="text" className="form-control" id="address" onChange={(e) => handleChange(e)} required defaultValue={newContact.address ?? ""} />
             </div>
             <div className="d-flex justify-content-end">
                 <button type="submit" className="btn btn-primary">
-                    {isEditing ? "Editando Contacto" : "Crear Contacto"}
+                    {id ? "Editando Contacto" : "Crear Contacto"}
                 </button>
             </div>
         </form>
